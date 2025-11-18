@@ -1,7 +1,12 @@
 meta {
-  name: users
+  name: nested resources
+  seq: 2
 }
 
 auth {
-  mode: inherit
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }

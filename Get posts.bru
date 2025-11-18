@@ -1,0 +1,30 @@
+meta {
+  name: Get posts
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/public/v2/posts
+  body: json
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body: isNotEmpty
+}
+
+tests {
+  const responseData = res.body;
+  
+  bru.setEnvVar("user_id", responseData[0].user_id);
+  bru.setEnvVar("post_id", responseData[0].id);
+  
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

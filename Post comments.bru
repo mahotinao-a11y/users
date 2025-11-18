@@ -1,0 +1,36 @@
+meta {
+  name: Post comments
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/public/v2/posts/{{post_id}}/comments
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "id": 123,
+      "post_id": {{post_id}},
+      "name": "Aarya Johar Ret.12",
+      "email": "ret_aarya_johar@hessel.test",
+      "body": "osjvfoijgfjblkxvlzjndlhvdjsxlbkmxl;n ljfnbxk bmnbjcnb."
+    }
+  
+}
+
+assert {
+  res.body: isNotEmpty
+  res.status: eq 201
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
