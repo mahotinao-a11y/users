@@ -1,0 +1,35 @@
+meta {
+  name: Patch users
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{base_url}}public/v2/users/8212193
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "SSSSSSSSSSS@greenfelder1101.example",
+    "name": "SSSSSSSSSSS1110",
+    "gender": "female",
+    "status": "inactive",
+    "id": 8212193
+  }
+}
+
+assert {
+  res.body.name: isNotEmpty
+  res.body: isJson
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

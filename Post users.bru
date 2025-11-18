@@ -1,0 +1,35 @@
+meta {
+  name: Post users
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}public/v2/users
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "id": 1,
+    "name": "SSSSSSSSSSS2121",
+    "email": "SSSSSSSSSSS@greenfelder2121.example",
+    "gender": "male",
+    "status": "inactive"
+  }
+}
+
+assert {
+  res.status: eq 422
+  res.body: isArray
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
