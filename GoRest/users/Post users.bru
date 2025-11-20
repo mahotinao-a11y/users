@@ -1,0 +1,41 @@
+meta {
+  name: Post users
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}public/v2/users
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "name": "asasasasa {{$timestamp}}",
+      "email": "{{unique_email}}",
+      "gender": "male",
+      "status": "active"
+  }
+  
+}
+
+assert {
+  res.status: eq 201
+  res.body.gender: in ["male","female"]
+}
+
+script:pre-request {
+  const timestamp = new Date().getTime();
+  bru.setEnvVar("unique_email", `asasasas${timestamp}@example.com`);
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

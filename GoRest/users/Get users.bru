@@ -1,0 +1,34 @@
+meta {
+  name: Get users
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/public/v2/users
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.length: gte 1
+}
+
+tests {
+  const responseData = res.body;
+  
+  bru.setEnvVar("user_id", responseData[0].id);
+  bru.setEnvVar("user_email", responseData[0].email);
+  bru.setEnvVar("user_name", responseData[0].name);
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

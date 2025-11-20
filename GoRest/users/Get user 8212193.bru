@@ -1,0 +1,33 @@
+meta {
+  name: Get user 8212193
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/public/v2/users/{{user_id}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+assert {
+  res.body.name: isNotEmpty
+  res.status: eq 200
+}
+
+tests {
+  const responseData = res.body;
+  
+  bru.setEnvVar("user_id", responseData[0].id);
+  bru.setEnvVar("user_email", responseData[0].email);
+  bru.setEnvVar("user_name", responseData[0].name);
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

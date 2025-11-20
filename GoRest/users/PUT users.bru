@@ -1,0 +1,35 @@
+meta {
+  name: PUT users
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{base_url}}public/v2/users/{{user_id}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "id": 8212193,
+    "name": "SSSSSSSSSSS111",
+    "email": "SSSSSSSSSSS@greenfelder11.example",
+    "gender": "male",
+    "status": "inactive"
+  }
+}
+
+assert {
+  res.body: isNotEmpty
+  res.body: isNotEmpty
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

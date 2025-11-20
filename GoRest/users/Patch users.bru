@@ -1,0 +1,45 @@
+meta {
+  name: Patch users
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{base_url}}public/v2/users/{{user_id}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "{{user_email}}",
+    "name": "{{user_name}}",
+    "gender": "male",
+    "status": "inactive",
+    "id": {{user_id}}
+  }
+  
+  
+}
+
+assert {
+  res.body.name: isNotEmpty
+  res.body: isJson
+}
+
+tests {
+  const responseData = bru.getResBody();
+  
+  bru.setEnvVar("user_id", responseData.user_id);
+  bru.setEnvVar("user_email", responseData.user_email);
+  bru.setEnvVar("user_name", responseData.user_name);
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,37 @@
+meta {
+  name: Get comment
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/public/v2/posts/{{post_id}}/comments
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+    
+}
+
+assert {
+  res.status: eq 200
+  res.body: isNotEmpty
+}
+
+tests {
+  const responseData = res.body;
+  
+  bru.setEnvVar("post_id", responseData[0].post_id);
+  bru.setEnvVar("comment_id", responseData[0].id);
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

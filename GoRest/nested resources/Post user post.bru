@@ -1,0 +1,30 @@
+meta {
+  name: Post user post
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/public/v2/users/{{user_id}}/posts
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "id": 254333,
+      "user_id": {{user_id}},
+      "title": "Cogito arbor comprehendo unde acerbitas volva cumque ultra.",
+      "body": "11111111111."
+    }
+}
+
+assert {
+  res.body: isNotEmpty
+  res.status: eq 201
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
