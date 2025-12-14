@@ -21,32 +21,35 @@
 - 
   ###  Структура проекта
 
-#### QA Коллекция/
-├── API endpoints/          ← Основная папка для API тестов
-│   ├── Positive/          ← Тесты, которые ДОЛЖНЫ проходить
-│   │   ├── GET_users.md
-│   │   ├── POST_user.md
-│   │   └── ...
-│   └── Negative/          ← Тесты, которые ДОЛЖНЫ падать (проверка ошибок)
-│       ├── GET_user_invalid_id.md
-│       ├── POST_user_empty_data.md
-│       └── ...
-└── Testing scenarios/     ← Сложные сценарии из нескольких шагов
-    ├── Create_and_verify_user.md
-    ├── Update_and_delete_flow.md
+####  Коллекция/
+├── API endpoints/          
+│   ├── Positive/         
+│   │   ├── GET users
+│   │   ├── GET {{user_id}}
+│   │   ├── POST users
+│   │   └── PUT {{user_id}}
+│   │ 
+│   └── Negative/          
+│       ├── GET users_not_token
+│       ├── GET invalid_user
+│       ├── POST new_users_not_status
+│       └── PUT PUT user_not_gender    
+│
+└── Testing scenarios/      
+    ├── POST user
+    ├── GET user_id
+    ├── PUT user_id
+    ├── GET new_user_id
+	├── DELETE new_user_id
+    └── GET new_user_id
 
-	### Настройка окружения🔧
-  -base_url: https://gorest.co.in/
-	
--token: 3eaa70d324b0cd3ff64546411c5f8fc234666885aa56cdc3e61317b1f994bf96
-	
--user_id: 8291305
-	
--post_id: 260055
-	
--user_email: asasasas1765706588144@example.com
-		
--user_name: asasasasa 1765706588
-	
--unique_email: asasasas1765706603504@example.com
+
+#### Настройка окружения ⚙️
+- base_url: https://gorest.co.in/
+- token: 3eaa70d324b0cd3ff64546411c5f8fc234666885aa56cdc3e61317b1f994bf96
+- user_id: 8291305
+- post_id: 260055
+- user_email: asasasas1765706588144@example.com	
+- user_name: asasasasa 1765706588
+- unique_email: asasasas1765706603504@example.com
 	
