@@ -1,0 +1,31 @@
+meta {
+  name: Post todo
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/public/v2/users/{{user_id}}/todos
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "id": 926242,
+      "user_id": 4523625,
+      "title": "Aeternus censura id qui natus somnus.",
+      "due_on": "2025-11-14T00:00:00.000+05:30",
+      "status": "pending"
+    }
+}
+
+assert {
+  res.status: neq 200
+  res.body.title: isNotEmpty
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

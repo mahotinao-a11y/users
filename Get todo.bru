@@ -1,0 +1,28 @@
+meta {
+  name: Get todo
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/public/v2/todos
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.body: isNotEmpty
+  res.status: eq 200
+}
+
+tests {
+  const responseData = res.body;
+  
+  bru.setEnvVar("user_id", responseData[0].user_id);
+  bru.setEnvVar("todo_id", responseData[0].id);
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

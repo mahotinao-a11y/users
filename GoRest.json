@@ -1,0 +1,1034 @@
+{
+  "name": "GoRest",
+  "version": "1",
+  "items": [
+    {
+      "type": "folder",
+      "name": "nested resources",
+      "filename": "nested resources",
+      "seq": 2,
+      "root": {
+        "request": {
+          "auth": {
+            "mode": "bearer",
+            "bearer": {
+              "token": "{{token}}"
+            }
+          }
+        },
+        "meta": {
+          "name": "nested resources",
+          "seq": 2
+        }
+      },
+      "items": [
+        {
+          "type": "http",
+          "name": "Get comment{post_id}",
+          "filename": "Get comment{post_id}.bru",
+          "seq": 3,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/posts/{{post_id}}/comments",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "  ",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 200",
+                "enabled": true,
+                "uid": "TCmPdFSUg044Po6MbNFXl"
+              }
+            ],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"post_id\", responseData.post_id);\nbru.setEnvVar(\"comment_id\", responseData.id);\n",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get posts",
+          "filename": "Get posts.bru",
+          "seq": 1,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/posts",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 200",
+                "enabled": true,
+                "uid": "FFKhNUm9qwSlOaTNPOWtj"
+              },
+              {
+                "name": "res.body",
+                "value": "isNotEmpty",
+                "enabled": true,
+                "uid": "NHzgibCQVRUcQWnMCvamJ"
+              }
+            ],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData[0].user_id);\nbru.setEnvVar(\"post_id\", responseData[0].id);\n\n",
+            "docs": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get todo",
+          "filename": "Get todo.bru",
+          "seq": 6,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/todos",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.body",
+                "value": "isNotEmpty",
+                "enabled": true,
+                "uid": "sSHSU7SO445YOLw6ppVox"
+              },
+              {
+                "name": "res.status",
+                "value": "eq 200",
+                "enabled": true,
+                "uid": "96g0L1vsSgxjU4ZGJgwuE"
+              }
+            ],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData.user_id);\nbru.setEnvVar(\"todo_id\", responseData.id);",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Post comments{post_id}",
+          "filename": "Post comments{post_id}.bru",
+          "seq": 4,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/posts/{{post_id}}/comments",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n    \"id\": 123,\n    \"post_id\": {{post_id}},\n    \"name\": \"Aarya Johar Ret.12\",\n    \"email\": \"ret_aarya_johar@hessel.test\",\n    \"body\": \"osjvfoijgfjblkxvlzjndlhvdjsxlbkmxl;n ljfnbxk bmnbjcnb.\"\n  }\n",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "neq 200",
+                "enabled": true,
+                "uid": "yoj5Pks89MTIUi12euVND"
+              }
+            ],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Post todo{user_id}",
+          "filename": "Post todo{user_id}.bru",
+          "seq": 5,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/users/{{user_id}}/todos",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n    \"id\": 926242,\n    \"user_id\": {{user_id}},\n    \"title\": \"Aeternus censura id qui natus somnus.\",\n    \"due_on\": \"2025-11-14T00:00:00.000+05:30\",\n    \"status\": \"pending\"\n  }",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "neq 200",
+                "enabled": true,
+                "uid": "dYTTlZkUx9MsYY4TOuoRR"
+              },
+              {
+                "name": "res.body.title",
+                "value": "isNotEmpty",
+                "enabled": true,
+                "uid": "Flu5oQJ2dkQRjIuJu4FNg"
+              }
+            ],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Post {user_id}post",
+          "filename": "Post {user_id}post.bru",
+          "seq": 2,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/users/{{user_id}}/posts",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n    \"id\": 254333,\n    \"user_id\": {{user_id}},\n    \"title\": \"Cogito arbor comprehendo unde acerbitas volva cumque ultra.\",\n    \"body\": \"11111111111.\"\n  }",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {
+              "req": "\n"
+            },
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 201",
+                "enabled": true,
+                "uid": "JGuKI5RUl7E5czvUoBHKO"
+              },
+              {
+                "name": "res.body",
+                "value": "isNotEmpty",
+                "enabled": true,
+                "uid": "m9xa7hFMmss0293DaBDZL"
+              }
+            ],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "inherit"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "users",
+      "filename": "users",
+      "seq": 3,
+      "root": {
+        "request": {
+          "auth": {
+            "mode": "inherit"
+          }
+        },
+        "meta": {
+          "name": "users",
+          "seq": 3
+        }
+      },
+      "items": [
+        {
+          "type": "http",
+          "name": "Get user {id}",
+          "filename": "Get user {id}.bru",
+          "seq": 2,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/users/{{user_id}}",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.body.name",
+                "value": "isNotEmpty",
+                "enabled": true,
+                "uid": "N5BcIVqwvuP7tz1tj8boo"
+              },
+              {
+                "name": "res.status",
+                "value": "eq 200",
+                "enabled": true,
+                "uid": "X3LGJrDvBWwxMlZ1x5Hac"
+              }
+            ],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData.id);\nbru.setEnvVar(\"user_email\", responseData.email);\nbru.setEnvVar(\"user_name\", responseData.name);",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get users",
+          "filename": "Get users.bru",
+          "seq": 1,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/users",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 200",
+                "enabled": true,
+                "uid": "XjpatSv2xFgzqFtonWoso"
+              },
+              {
+                "name": "res.body.length",
+                "value": "gte 1",
+                "enabled": true,
+                "uid": "mlxt3GP08QF9U1MmO03HD"
+              }
+            ],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData[0].id);\nbru.setEnvVar(\"user_email\", responseData[0].email);\nbru.setEnvVar(\"user_name\", responseData[0].name);\n",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Patch users",
+          "filename": "Patch users.bru",
+          "seq": 2,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}public/v2/users/{{user_id}}",
+            "method": "PATCH",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"email\": \"{{user_email}}\",\n  \"name\": \"{{user_name}}\",\n  \"gender\": \"male\",\n  \"status\": \"inactive\",\n  \"id\": {{user_id}}\n}\n\n",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.body.name",
+                "value": "isNotEmpty",
+                "enabled": true,
+                "uid": "6Gc3cmRshfCD8Z4JOhQVV"
+              },
+              {
+                "name": "res.body",
+                "value": "isJson",
+                "enabled": true,
+                "uid": "Kytp0T9CVEEknGZyQNBYr"
+              }
+            ],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData.user_id);\nbru.setEnvVar(\"user_email\", responseData.user_email);\nbru.setEnvVar(\"user_name\", responseData.user_name);",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Post users",
+          "filename": "Post users.bru",
+          "seq": 2,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}public/v2/users",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n    \"name\": \"asasasasa {{$timestamp}}\",\n    \"email\": \"{{unique_email}}\",\n    \"gender\": \"female\",\n    \"status\": \"active\"\n}\n",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {
+              "req": "const timestamp = new Date().getTime();\nbru.setEnvVar(\"unique_email\", `asasasas${timestamp}@example.com`);\n"
+            },
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 201",
+                "enabled": true,
+                "uid": "ooUDFHiTKuc2EZIpuwGUh"
+              },
+              {
+                "name": "res.body.gender",
+                "value": "in [\"male\",\"female\"]",
+                "enabled": true,
+                "uid": "9jOwPmwf8RjyicBvgLXmf"
+              }
+            ],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "PUT users",
+          "filename": "PUT users.bru",
+          "seq": 2,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}public/v2/users/{{user_id}}",
+            "method": "PUT",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"email\": \"{{user_email}}\",\n  \"name\": \"{{user_name}}\",\n  \"gender\": \"male\",\n  \"status\": \"inactive\"\n  \n}\n",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.body",
+                "value": "isNotEmpty",
+                "enabled": true,
+                "uid": "4ttnrSgrkydEbxu6LsFbX"
+              }
+            ],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData.user_id);\nbru.setEnvVar(\"user_email\", responseData.user_email);\nbru.setEnvVar(\"user_name\", responseData.user_name);",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get invalid_users",
+          "filename": "Get invalid_users.bru",
+          "seq": 6,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/user",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 404",
+                "enabled": true,
+                "uid": "xxjBpz9hrYnuEOeWyEHh0"
+              }
+            ],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "GET not_user_id",
+          "filename": "GET not_user_id.bru",
+          "seq": 7,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/users/102",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 404",
+                "enabled": true,
+                "uid": "RbHMtHYWeKn3zX5US57f9"
+              }
+            ],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "POST new_users_not_status",
+          "filename": "POST new_users_not_status.bru",
+          "seq": 8,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}public/v2/users",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n    \"name\": \"asasasasa {{$timestamp}}\",\n    \"email\": \"{{unique_email}}\",\n    \"gender\": \"   \",\n    \"status\": \"active\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 422",
+                "enabled": true,
+                "uid": "43XwYEHIj07rDEnCG4mZz"
+              }
+            ],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "PUT user_not_gender",
+          "filename": "PUT user_not_gender.bru",
+          "seq": 9,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}public/v2/users/{{user_id}}",
+            "method": "PUT",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n    \"name\": \"asasasasa {{$timestamp}}\",\n    \"email\": \"{{unique_email}}\",\n    \"gender\": \"  \",\n    \"status\": \"active\"\n}\n",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "PATCH user_not_token",
+          "filename": "PATCH user_not_token.bru",
+          "seq": 10,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}public/v2/users/{{user_id}}",
+            "method": "PATCH",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [
+              {
+                "name": "res.status",
+                "value": "eq 404",
+                "enabled": true,
+                "uid": "GlY0ns8noFsCEywRyoIIl"
+              },
+              {
+                "name": "res.body",
+                "value": "isNotEmpty",
+                "enabled": true,
+                "uid": "HeBVUEmgJ9HeBPoQqLkQO"
+              }
+            ],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": ""
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "Testing scenarios",
+      "filename": "Testing scenarios",
+      "seq": 3,
+      "root": {
+        "request": {
+          "auth": {
+            "mode": "inherit"
+          }
+        },
+        "meta": {
+          "name": "Testing scenarios",
+          "seq": 3
+        }
+      },
+      "items": [
+        {
+          "type": "http",
+          "name": "POST user",
+          "filename": "POST user.bru",
+          "seq": 1,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}public/v2/users",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n    \"name\": \"zxxcvbn {{$timestamp}}\",\n    \"email\": \"{{unique_email}}\",\n    \"gender\": \"female\",\n    \"status\": \"active\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {
+              "req": "const timestamp = new Date().getTime();\nbru.setEnvVar(\"unique_email\", `Anna${timestamp}@example.com`)"
+            },
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "GET user_id",
+          "filename": "GET user_id.bru",
+          "seq": 2,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/users/{{user_id}}",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_email\", responseData.unique_email);\nbru.setEnvVar(\"user_name\", responseData.$timestamp);",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "PUT user_id",
+          "filename": "PUT user_id.bru",
+          "seq": 3,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}public/v2/users/{{user_id}}",
+            "method": "PUT",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"email\": \"{{user_email}}\",\n  \"name\": \"{{user_name}}\",\n  \"gender\": \"female\",\n  \"status\": \"active\"\n  \n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData.user_id);\nbru.setEnvVar(\"user_email\", responseData.user_email);\nbru.setEnvVar(\"user_name\", responseData.user_name);",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "GET new_user_id",
+          "filename": "GET new_user_id.bru",
+          "seq": 4,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/users/{{user_id}}",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData.id);\nbru.setEnvVar(\"user_email\", responseData.email);\nbru.setEnvVar(\"user_name\", responseData.name);",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "DELETE new_user_id",
+          "filename": "DELETE new_user_id.bru",
+          "seq": 5,
+          "settings": {
+            "encodeUrl": true,
+            "timeout": 0
+          },
+          "tags": [],
+          "request": {
+            "url": "{{base_url}}/public/v2/users/{{user_id}}",
+            "method": "DELETE",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"id\": 8291467,\n  \"name\": \"zxxcvbn 1765729927\",\n  \"email\": \"asasasas1765729927790@example.com\",\n  \"gender\": \"female\",\n  \"status\": \"active\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": [],
+              "file": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "const responseData = res.body;\n\nbru.setEnvVar(\"user_id\", responseData.user_id);\nbru.setEnvVar(\"user_email\", responseData.user_email);\nbru.setEnvVar(\"user_name\", responseData.user_name);",
+            "docs": "",
+            "auth": {
+              "mode": "bearer",
+              "bearer": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "activeEnvironmentUid": "92YEkeZhqWbMhrzi4Fdn3",
+  "environments": [
+    {
+      "variables": [
+        {
+          "name": "base_url",
+          "value": "https://gorest.co.in/",
+          "enabled": true,
+          "secret": false,
+          "type": "text"
+        },
+        {
+          "name": "token",
+          "value": "3eaa70d324b0cd3ff64546411c5f8fc234666885aa56cdc3e61317b1f994bf96",
+          "enabled": true,
+          "secret": false,
+          "type": "text"
+        },
+        {
+          "name": "user_id",
+          "value": 8264016,
+          "secret": false,
+          "enabled": true,
+          "type": "text"
+        },
+        {
+          "name": "post_id",
+          "value": 260055,
+          "secret": false,
+          "enabled": true,
+          "type": "text"
+        },
+        {
+          "name": "user_email",
+          "value": "asasasas1764174924171@example.com",
+          "secret": false,
+          "enabled": true,
+          "type": "text"
+        },
+        {
+          "name": "user_name",
+          "value": "asasasasa 1764174924",
+          "secret": false,
+          "enabled": true,
+          "type": "text"
+        },
+        {
+          "name": "unique_email",
+          "value": "asasasas1765706521886@example.com",
+          "secret": false,
+          "enabled": true,
+          "type": "text"
+        }
+      ],
+      "name": "test2"
+    },
+    {
+      "variables": [
+        {
+          "name": "base_url",
+          "value": "https://gorest.co.in/",
+          "enabled": true,
+          "secret": false,
+          "type": "text"
+        },
+        {
+          "name": "token",
+          "value": "3eaa70d324b0cd3ff64546411c5f8fc234666885aa56cdc3e61317b1f994bf96",
+          "enabled": true,
+          "secret": false,
+          "type": "text"
+        }
+      ],
+      "name": "test2 - Copy"
+    }
+  ],
+  "brunoConfig": {
+    "version": "1",
+    "name": "GoRest",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ],
+    "size": 0.005499839782714844,
+    "filesCount": 16
+  }
+}
